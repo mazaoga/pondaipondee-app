@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: rgb(239 246 255);
+    color: rgb(31 41 55);
+    min-height: 100vh;
+  }
+  
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background-color: rgb(59 130 246);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-primary:hover {
+    background-color: rgb(37 99 235);
+  }
+  
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(59 130 246), 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgb(229 231 235);
+    border-radius: 0.5rem;
+    background-color: white;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(59 130 246);
+    border-color: transparent;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgb(243 244 246);
+    padding: 1.5rem;
+  }
+}
