@@ -1,6 +1,115 @@
 import { useState } from 'react';
 import Button from '../components/UI/Button';
-import { testSaveToGoogleSheets, testConnection, getCalculationHistory, testGoogleSheetsURL } from '../services/googleSheetsService';
+import { testConnection, getCalculationHistory } from '../services/googleSheetsService';
+
+// สร้างฟังก์ชันทดสอบใหม่ที่ใช้งานได้
+const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbxh1z1oz2d2M5_vSqkxU2QaOZC_qOE5cljGdZgBEKS_JduK8mXxt2TMBdI0_ZjM0ZMv/exec';
+
+const testGoogleSheetsURL = async () => {
+  try {
+    console.log('🔍 ทดสอบ URL:', GOOGLE_SCRIPTS_API_URL);
+    
+    const response = await fetch(`${GOOGLE_SCRIPTS_API_URL}?action=test&timestamp=${Date.now()}`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'omit',
+      cache: 'no-cache'
+    });
+
+    console.log('📨 Status:', response.status);
+    console.log('✅ OK:', response.ok);
+    console.log('🏷️ Content-Type:', response.headers.get('content-type'));
+
+    if (response.ok) {
+      const text = await response.text();
+      console.log('📥 Response text:', text);
+      
+      try {
+        const json = JSON.parse(text);
+        console.log('📄 Response JSON:', json);
+        return { success: true, data: json };
+      } catch (e) {
+        console.warn('⚠️ Response is not JSON:', text);
+        return { success: true, data: text };
+      }
+    } else {
+      const errorText = await response.text();
+      console.error('❌ Error response:', errorText);
+      return { success: false, error: `HTTP ${response.status}: ${errorText}` };
+    }
+  } catch (error) {
+    console.error('💥 Network error:', error);
+    return { 
+      success: false, 
+      error: (error as Error).message,
+      type: (error as Error).name === 'TypeError' ? 'NETWORK_ERROR' : 'UNKNOWN_ERROR'
+    };
+  }
+};
+
+const testSaveToGoogleSheets = async () => {
+  const testData = {
+    productPrice: 100000,
+    downPayment: 20000,
+    interestRate: 5,
+    months: 12,
+    totalInterest: 4000,
+    totalAmount: 84000,
+    monthlyPayment: 7000
+  };
+
+  console.log('🔍 กำลังทดสอบส่งข้อมูลไป Google Sheets...');
+  
+  try {
+    const data = {
+      action: 'save',
+      timestamp: new Date().toISOString(),
+      productPrice: testData.productPrice,
+      downPayment: testData.downPayment,
+      principal: testData.productPrice - testData.downPayment,
+      interestRate: testData.interestRate,
+      months: testData.months,
+      totalInterest: testData.totalInterest,
+      totalAmount: testData.totalAmount,
+      monthlyPayment: testData.monthlyPayment
+    };
+
+    console.log('📤 ข้อมูลที่จะส่ง:', data);
+
+    const response = await fetch(GOOGLE_SCRIPTS_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(data),
+      mode: 'cors',
+      credentials: 'omit'
+    });
+
+    console.log('📨 Response status:', response.status);
+    console.log('✅ Response ok:', response.ok);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Response error text:', errorText);
+      throw new Error(`HTTP Error ${response.status}: ${errorText.substring(0, 200)}`);
+    }
+
+    const result = await response.json();
+    console.log('📥 Response data:', result);
+
+    return result;
+  } catch (error) {
+    console.error('💥 ข้อผิดพลาดในการทดสอบ:', error);
+    
+    if ((error as Error).name === 'TypeError' && (error as Error).message.includes('fetch')) {
+      throw new Error('ไม่สามารถเชื่อมต่อได้ - ตรวจสอบ Internet หรือ URL ของ Google Apps Script');
+    }
+    
+    throw error;
+  }
+};
 
 interface DebugResult {
   timestamp: string;
