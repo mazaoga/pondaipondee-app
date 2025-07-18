@@ -1,7 +1,7 @@
 // Google Sheets API configuration  
 // ⚠️ แทนที่ URL นี้ด้วย URL ใหม่ที่ได้จาก Google Apps Script Deploy
 // URL ต้องมีรูปแบบ: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
-const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbxh1z1oz2d2M5_vSqkxU2QaOZC_qOE5cljGdZgBEKS_JduK8mXxt2TMBdI0_ZjM0ZMv/exec';
+const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbyl-KjrYbHdGNYpgIU4i7YfV1fxsV49KzXyzoj-YH8XdF6J8AhgEQdwyeJAjTzf-pXh/exec';
 
 /**
  * บันทึกข้อมูลการคำนวณลง Google Sheets
