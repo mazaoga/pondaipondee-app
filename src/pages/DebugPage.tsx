@@ -3,7 +3,7 @@ import Button from '../components/UI/Button';
 import { testConnection, getCalculationHistory } from '../services/googleSheetsService';
 
 // สร้างฟังก์ชันทดสอบใหม่ที่ใช้งานได้
-const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbw8Q4K4aaJ4aDJToXlWuhPeDcRWV8vKz3S8qDkQFBvVQkUNcCyeniTpibwHp6RQJRPPhQ/exec';
+const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbztwXI_BN4_Zfaqy7ZVr5pL7fovyU-VpJlXINqCTdQjfYUgFsM07zjAPhAI5o8vMCtnuA/exec';
 
 const testGoogleSheetsURL = async () => {
   try {
