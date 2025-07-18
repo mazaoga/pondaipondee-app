@@ -114,7 +114,24 @@ select.input-field {
     overflow: hidden;
     max-width: 100%;
   }
-}  .card {
+}
+
+/* Clean and minimal button styles */
+.btn-clean {
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  color: #374151;
+  font-weight: 500;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.btn-clean:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+  .card {
     background-color: white;
     border-radius: 0.75rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);

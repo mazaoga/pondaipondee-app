@@ -18,18 +18,18 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props 
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95';
+  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variants = {
-    primary: 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white focus:ring-yellow-500 active:from-yellow-700 active:to-yellow-800 shadow-yellow-200',
-    secondary: 'bg-gradient-to-r from-amber-100 to-orange-100 hover:from-amber-200 hover:to-orange-200 text-amber-800 focus:ring-amber-500 active:from-amber-300 active:to-orange-300 border border-amber-200 shadow-amber-100',
-    outline: 'border-2 border-yellow-500 text-yellow-600 hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 focus:ring-yellow-500 active:bg-gradient-to-r active:from-yellow-100 active:to-amber-100 shadow-yellow-100',
+    primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 shadow-sm',
+    secondary: 'bg-gray-100 hover:bg-gray-200 text-gray-700 focus:ring-gray-500 border border-gray-300',
+    outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-500 shadow-sm',
   };
   
   const sizes = {
-    sm: 'px-6 py-3 text-sm min-h-[44px]', // เพิ่ม padding สำหรับ rounded style
-    md: 'px-8 py-4 text-base min-h-[48px]', // เพิ่ม padding และ min-height
-    lg: 'px-10 py-5 text-lg min-h-[52px] font-bold', // เพิ่ม padding และ font-weight สำหรับขนาดใหญ่
+    sm: 'px-4 py-2 text-sm', 
+    md: 'px-6 py-3 text-base', 
+    lg: 'px-8 py-4 text-lg', 
   };
 
   const classes = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`;

@@ -176,14 +176,27 @@ const CalculatorForm: React.FC = () => {
             max="120"
             inputMode="numeric"
           />
-
-          <div className="flex flex-col gap-4 pt-6">
+          <br/>
+          <div className="flex">
             <Button
+              variant="primary"
               onClick={handleCalculate}
               loading={isCalculating}
               disabled={isCalculating || isSaving}
-              className="w-full"
-              size="lg"
+              className="flex-2"
+              size="md"
+              style={{
+                background: '#2563eb',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '14px 28px',
+                fontSize: '16px',
+                fontWeight: '600',
+                transition: 'background-color 0.2s ease',
+                flex: '2',
+                marginRight: '16px'
+              }}
             >
               {isCalculating ? 'กำลังคำนวณ...' : 'คำนวณ'}
             </Button>
@@ -192,8 +205,19 @@ const CalculatorForm: React.FC = () => {
               variant="secondary"
               onClick={handleReset}
               disabled={isCalculating || isSaving}
-              size="lg"
-              className="w-full"
+              size="md"
+              className="flex-1"
+              style={{
+                background: '#f3f4f6',
+                color: '#374151',
+                border: '1px solid #d1d5db',
+                borderRadius: '8px',
+                padding: '12px 20px',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'background-color 0.2s ease',
+                flex: '1'
+              }}
             >
               ล้างข้อมูล
             </Button>

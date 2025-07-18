@@ -12,17 +12,27 @@ const MainPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 text-center sm:text-left">
-          PonDaiPonDee
+          ระบบคำนวณสินเชื่อ
         </h1>
         
-        <div className="flex gap-3 justify-center sm:justify-end">
+        <div className="flex gap-3 justify-end">
           <Button
             variant="outline"
-            size="md"
+            size="sm"
             onClick={() => navigate('/history')}
             className="flex items-center justify-center gap-2 min-w-[120px]"
+            style={{
+              background: '#ffffff',
+              border: '1px solid #d1d5db',
+              borderRadius: '12px',
+              color: '#374151',
+              fontWeight: '500',
+              padding: '10px 16px',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+              transition: 'none'
+            }}
           >
-            <HistoryIcon className="w-5 h-5" />
+            <HistoryIcon className="w-4 h-4" />
             ประวัติ
           </Button>
         </div>
