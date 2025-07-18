@@ -49,7 +49,7 @@ export const saveCalculation = async (calculationData) => {
     const response = await fetch(GOOGLE_SCRIPTS_API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
         'Accept': 'application/json',
       },
       body: JSON.stringify(data),
@@ -215,7 +215,7 @@ export const testSaveToGoogleSheets = async () => {
     const response = await fetch(GOOGLE_SCRIPTS_API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
         'Accept': 'application/json',
       },
       body: JSON.stringify(data),
