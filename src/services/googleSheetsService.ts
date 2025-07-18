@@ -1,5 +1,5 @@
 // Google Sheets API configuration
-const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbxowUPHpmOY3K1_UTAcRnNBBKNZXunnVXBCgP1E_RuOwcmAMh-CTrIVlbdOTP-sl4hL/exec';
 
 export interface CalculationRecord {
   id?: string;
