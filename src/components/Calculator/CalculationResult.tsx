@@ -33,12 +33,20 @@ const CalculationResult: React.FC<CalculationResultProps> = ({ result, isSaving 
       </div>
 
       {/* ผลลัพธ์หลัก */}
-      <div className="text-center mb-6 p-4 bg-white rounded-lg border border-blue-200">
-        <p className="text-sm text-gray-600 mb-1">ค่างวดรายเดือน</p>
-        <p className="text-3xl font-bold text-blue-600">
+      <div className="text-center mb-6 p-6 bg-white rounded-xl border-2 border-blue-300 shadow-lg">
+        <p className="text-base text-gray-700 mb-3 font-medium">ค่างวดรายเดือน</p>
+        <p style={{
+          fontSize: '4rem',
+          fontWeight: '900',
+          color: '#1d4ed8',
+          textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+          letterSpacing: '-0.02em',
+          marginBottom: '0.5rem',
+          lineHeight: '1'
+        }}>
           {formatCurrency(monthlyPayment)}
         </p>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-base text-gray-600 mt-3 font-medium">
           เป็นเวลา {formatNumber(months)} เดือน
         </p>
       </div>
@@ -84,13 +92,18 @@ const CalculationResult: React.FC<CalculationResultProps> = ({ result, isSaving 
         </div>
 
         {/* สรุปการผ่อน */}
-        <div className="mt-4 p-3 bg-gray-50 rounded-lg border">
+        <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl border-2 border-blue-200">
           <div className="text-center">
-            <p className="text-sm text-gray-600 mb-1">สรุป: ผ่อนชำระ</p>
-            <p className="font-semibold text-gray-800">
+            <p className="text-base text-gray-700 mb-2 font-medium">สรุป: ผ่อนชำระ</p>
+            <p style={{
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              color: '#374151',
+              marginBottom: '0.25rem'
+            }}>
               {formatCurrency(monthlyPayment)} × {formatNumber(months)} เดือน
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-600 mt-2 font-medium">
               (ยอดรวม {formatCurrency(totalAmount)})
             </p>
           </div>

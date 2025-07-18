@@ -26,12 +26,27 @@ const CalculationResult = ({ result, isSaving }) => {
       </div>
 
       {/* ผลลัพธ์หลัก */}
-      <div className="text-center mb-6 p-4 bg-white rounded-lg border border-blue-200">
-        <p className="text-sm text-gray-600 mb-1">ค่างวดรายเดือน</p>
-        <p className="text-3xl font-bold text-blue-600">
+      <div className="text-center mb-6 p-6 rounded-xl shadow-lg" style={{
+        background: 'linear-gradient(135deg, #FFF8DC 0%, #FFFACD 50%, #FFEBCD 100%)',
+        border: '2px solid #DAA520',
+        boxShadow: '0 8px 25px rgba(218, 165, 32, 0.2)'
+      }}>
+        <p className="text-base text-gray-700 mb-3 font-medium">ค่างวดรายเดือน</p>
+        <p style={{
+          fontSize: '3rem',
+          fontWeight: '900',
+          background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          textShadow: '2px 2px 4px rgba(255, 140, 0, 0.3)',
+          letterSpacing: '-0.02em',
+          marginBottom: '0.5rem',
+          lineHeight: '1'
+        }}>
           {formatCurrency(monthlyPayment)}
         </p>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-base text-gray-600 mt-3 font-medium">
           เป็นเวลา {formatNumber(months)} เดือน
         </p>
       </div>
@@ -77,13 +92,23 @@ const CalculationResult = ({ result, isSaving }) => {
         </div>
 
         {/* สรุปการผ่อน */}
-        <div className="mt-4 p-3 bg-gray-50 rounded-lg border">
+        <div className="mt-4 p-4 rounded-xl" style={{
+          border: '2px solid #999999'
+        }}>
           <div className="text-center">
-            <p className="text-sm text-gray-600 mb-1">สรุป: ผ่อนชำระ</p>
-            <p className="font-semibold text-gray-800">
+            <p className="text-base text-gray-700 mb-2 font-medium">สรุป: ผ่อนชำระ</p>
+            <p style={{
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              background: 'linear-gradient(135deg, #B8860B 0%, #DAA520 50%, #FFD700 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              marginBottom: '0.25rem'
+            }}>
               {formatCurrency(monthlyPayment)} × {formatNumber(months)} เดือน
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-600 mt-2 font-medium">
               (ยอดรวม {formatCurrency(totalAmount)})
             </p>
           </div>
