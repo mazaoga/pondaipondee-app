@@ -147,23 +147,31 @@ export const getCalculationHistory = async () => {
  */
 export const testConnection = async () => {
   try {
-    if (import.meta.env.DEV) {
-      return true;
-    }
-
-    const response = await fetch(`${GOOGLE_SCRIPTS_API_URL}?action=test`, {
+    console.log('🔍 ทดสอบการเชื่อมต่อ Google Sheets...');
+    
+    const response = await fetch(`${GOOGLE_SCRIPTS_API_URL}?action=test&timestamp=${Date.now()}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
       mode: 'cors',
-      credentials: 'omit'
+      cache: 'no-cache',
+      redirect: 'follow'
     });
 
-    return response.ok;
+    console.log('📨 testConnection Response status:', response.status);
+    console.log('✅ testConnection Response ok:', response.ok);
+
+    if (!response.ok) {
+      console.error('❌ testConnection Response not ok:', response.status);
+      return false;
+    }
+
+    const result = await response.json();
+    console.log('📥 testConnection Response data:', result);
+
+    // ตรวจสอบว่า response มี success: true หรือไม่
+    return result && result.success === true;
+
   } catch (error) {
-    console.error('ไม่สามารถเชื่อมต่อ Google Sheets ได้:', error);
+    console.error('💥 ไม่สามารถเชื่อมต่อ Google Sheets ได้:', error);
     return false;
   }
 };
