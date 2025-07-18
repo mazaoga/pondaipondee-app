@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import HistoryPage from './components/History/HistoryPage';
-import DebugPage from './pages/DebugPage';
 import SummaryPage from './pages/SummaryPage';
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/history" element={<HistoryPage />} />
-          <Route path="/debug" element={<DebugPage />} />
           <Route path="/summary" element={<SummaryPage />} />
         </Routes>
       </div>

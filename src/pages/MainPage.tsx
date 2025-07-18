@@ -19,15 +19,6 @@ const MainPage = () => {
           <Button
             variant="outline"
             size="md"
-            onClick={() => navigate('/debug')}
-            className="flex items-center justify-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 min-w-[120px]"
-          >
-            🔧 Debug
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="md"
             onClick={() => navigate('/history')}
             className="flex items-center justify-center gap-2 min-w-[120px]"
           >
