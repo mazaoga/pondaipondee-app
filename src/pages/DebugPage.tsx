@@ -9,16 +9,21 @@ const testGoogleSheetsURL = async () => {
   try {
     console.log('🔍 ทดสอบ URL:', GOOGLE_SCRIPTS_API_URL);
     
-    const response = await fetch(`${GOOGLE_SCRIPTS_API_URL}?action=test&timestamp=${Date.now()}`, {
+    // ลองใช้ GET request แบบง่ายก่อน (ไม่ใช้ preflight)
+    const response = await fetch(`${GOOGLE_SCRIPTS_API_URL}?action=test&timestamp=${Date.now()}&origin=${encodeURIComponent(window.location.origin)}`, {
       method: 'GET',
       mode: 'cors',
-      credentials: 'omit',
-      cache: 'no-cache'
+      cache: 'no-cache',
+      redirect: 'follow'
     });
 
     console.log('📨 Status:', response.status);
     console.log('✅ OK:', response.ok);
     console.log('🏷️ Content-Type:', response.headers.get('content-type'));
+    console.log('🌐 CORS Headers:', {
+      'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+      'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods')
+    });
 
     if (response.ok) {
       const text = await response.text();
@@ -30,7 +35,7 @@ const testGoogleSheetsURL = async () => {
         return { success: true, data: json };
       } catch (e) {
         console.warn('⚠️ Response is not JSON:', text);
-        return { success: true, data: text };
+        return { success: true, data: text, warning: 'Response is not JSON' };
       }
     } else {
       const errorText = await response.text();
@@ -39,6 +44,17 @@ const testGoogleSheetsURL = async () => {
     }
   } catch (error) {
     console.error('💥 Network error:', error);
+    
+    // ตรวจสอบประเภท error
+    if ((error as Error).name === 'TypeError' && (error as Error).message.includes('CORS')) {
+      return { 
+        success: false, 
+        error: 'CORS Policy Error - ต้องอัพเดท Google Apps Script',
+        type: 'CORS_ERROR',
+        solution: 'ใช้โค้ด FIXED_GOOGLE_APPS_SCRIPT_v3.js'
+      };
+    }
+    
     return { 
       success: false, 
       error: (error as Error).message,
@@ -80,15 +96,19 @@ const testSaveToGoogleSheets = async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       },
       body: JSON.stringify(data),
       mode: 'cors',
-      credentials: 'omit'
+      cache: 'no-cache',
+      redirect: 'follow'
     });
 
     console.log('📨 Response status:', response.status);
     console.log('✅ Response ok:', response.ok);
+    console.log('🏷️ Response headers:', {
+      'Content-Type': response.headers.get('content-type'),
+      'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin')
+    });
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -104,7 +124,7 @@ const testSaveToGoogleSheets = async () => {
     console.error('💥 ข้อผิดพลาดในการทดสอบ:', error);
     
     if ((error as Error).name === 'TypeError' && (error as Error).message.includes('fetch')) {
-      throw new Error('ไม่สามารถเชื่อมต่อได้ - ตรวจสอบ Internet หรือ URL ของ Google Apps Script');
+      throw new Error('CORS Error - ต้องอัพเดท Google Apps Script ด้วยโค้ดใหม่');
     }
     
     throw error;
@@ -277,33 +297,45 @@ const DebugPage = () => {
             </h3>
             <div className="text-sm text-blue-700 space-y-2">
               <p><strong>Environment:</strong> {import.meta.env.DEV ? 'Development' : 'Production'}</p>
-              <p><strong>Google Apps Script Status:</strong></p>
-              <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">
-                <strong>⚠️ ต้องอัพเดท URL ใหม่!</strong><br/>
-                1. สร้าง Google Apps Script ใหม่ตามขั้นตอนข้างล่าง<br/>
-                2. อัพเดท URL ในไฟล์ <code>src/services/googleSheetsService.js</code>
+              <p><strong>Origin:</strong> {window.location.origin}</p>
+              <p><strong>Google Apps Script URL:</strong></p>
+              <code className="bg-white px-2 py-1 rounded text-xs break-all block">
+                {GOOGLE_SCRIPTS_API_URL}
+              </code>
+              
+              <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded mt-3">
+                <strong>🚨 CORS Error ตรวจพบ!</strong><br/>
+                <strong>สาเหตุ:</strong> Google Apps Script ไม่อนุญาต CORS จาก GitHub Pages<br/>
+                <strong>วิธีแก้:</strong> ใช้โค้ด <code>FIXED_GOOGLE_APPS_SCRIPT_v3.js</code> แทนโค้ดเก่า
               </div>
             </div>
           </div>
 
           {/* Instructions */}
-          <div className="mt-6 bg-yellow-50 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-yellow-800 mb-3">
-              📝 วิธีแก้ปัญหา "Failed to fetch"
+          <div className="mt-6 bg-red-50 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-red-800 mb-3">
+              � วิธีแก้ไข CORS Error
             </h3>
-            <ol className="text-sm text-yellow-700 space-y-2 list-decimal list-inside">
-              <li><strong>ทดสอบ URL ก่อน</strong> - ตรวจสอบว่า Google Apps Script URL ใช้งานได้</li>
-              <li><strong>ตรวจสอบ Google Apps Script</strong>:
+            <ol className="text-sm text-red-700 space-y-3 list-decimal list-inside">
+              <li><strong>ไปที่ Google Apps Script</strong> - เปิด URL ของคุณ</li>
+              <li><strong>แทนที่โค้ดทั้งหมด</strong> ด้วยโค้ดจากไฟล์ <code>FIXED_GOOGLE_APPS_SCRIPT_v3.js</code></li>
+              <li><strong>บันทึก</strong> (Ctrl+S)</li>
+              <li><strong>Deploy ใหม่</strong>:
                 <ul className="ml-4 mt-1 space-y-1 list-disc list-inside">
-                  <li>Deploy เป็น "Web app"</li>
-                  <li>Execute as: "Me"</li>
-                  <li>Who has access: "Anyone"</li>
+                  <li>Deploy → New deployment</li>
+                  <li>Type: Web app</li>
+                  <li>Execute as: Me</li>
+                  <li>Who has access: <strong>Anyone</strong></li>
                 </ul>
               </li>
-              <li><strong>ตรวจสอบ Google Sheet</strong> - ต้องมี Headers ในแถวแรก</li>
-              <li><strong>อนุญาต Permissions</strong> - Apps Script ต้องได้รับอนุญาตให้เข้าถึง Google Sheets</li>
-              <li><strong>ลอง Deploy ใหม่</strong> - หากยังไม่ได้ผล</li>
+              <li><strong>Copy URL ใหม่</strong> (หาก Deploy ให้ URL ใหม่)</li>
+              <li><strong>ทดสอบอีกครั้ง</strong> ในหน้านี้</li>
             </ol>
+            
+            <div className="mt-4 p-3 bg-white rounded border">
+              <strong>📄 ไฟล์ที่ต้องใช้:</strong> <code>FIXED_GOOGLE_APPS_SCRIPT_v3.js</code><br/>
+              <small>โค้ดนี้มี CORS headers และ doOptions() function สำหรับแก้ไข preflight requests</small>
+            </div>
           </div>
         </div>
       </div>
