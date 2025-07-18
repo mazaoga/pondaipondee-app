@@ -67,7 +67,7 @@ export const saveCalculation = async (calculationData: CalculationRecord): Promi
     const response = await fetch(GOOGLE_SCRIPTS_API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
       body: JSON.stringify(data),
       mode: 'cors'
@@ -123,7 +123,7 @@ export const getCalculationHistory = async (): Promise<ServiceResponse<Calculati
     const response = await fetch(`${GOOGLE_SCRIPTS_API_URL}?action=get`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
       mode: 'cors'
     });
@@ -168,7 +168,7 @@ export const testConnection = async () => {
     const response = await fetch(`${GOOGLE_SCRIPTS_API_URL}?action=test`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
       mode: 'cors'
     });
