@@ -3,7 +3,7 @@ import Button from '../components/UI/Button';
 import { testConnection, getCalculationHistory } from '../services/googleSheetsService';
 
 // สร้างฟังก์ชันทดสอบใหม่ที่ใช้งานได้
-const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbyl-KjrYbHdGNYpgIU4i7YfV1fxsV49KzXyzoj-YH8XdF6J8AhgEQdwyeJAjTzf-pXh/exec';
+const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbxNsKY4B6N09jto88SBDmSSRu3jUZrhdJaefcrDZnkj0pqddsCI59Tbhik1STRSvNRE/exec';
 
 const testGoogleSheetsURL = async () => {
   try {
@@ -309,9 +309,10 @@ const DebugPage = () => {
               <strong>ขั้นตอนต่อไป:</strong> อัพเดท Google Apps Script ด้วยโค้ดใหม่
             </div>
             
-            <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-3 py-2 rounded mt-2">
-              <strong>⚠️ พบ Error: setHeaders is not a function</strong><br/>
-              <strong>วิธีแก้:</strong> ใช้โค้ด <code>WORKING_GOOGLE_APPS_SCRIPT_v4.js</code> (ไม่มี setHeaders)
+            <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded mt-2">
+              <strong>🚨 CORS Error ที่คุณเจอ = Google Apps Script ยังไม่อัพเดท!</strong><br/>
+              <strong>วิธีแก้ที่แน่นอน:</strong> ใช้โค้ด <code>WORKING_GOOGLE_APPS_SCRIPT_v4.js</code><br/>
+              <strong>⚠️ สำคัญ:</strong> ต้องไป Copy โค้ดใหม่ในไฟล์นี้ไปวางใน Google Apps Script ของคุณ!
             </div>
             </div>
           </div>
