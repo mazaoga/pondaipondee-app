@@ -5,15 +5,13 @@
 
 function doOptions(e) {
   // Handle CORS preflight requests
-  return ContentService
-    .createTextOutput('')
-    .setMimeType(ContentService.MimeType.TEXT)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Accept',
-      'Access-Control-Max-Age': '86400'
-    });
+  const output = ContentService.createTextOutput('');
+  output.setMimeType(ContentService.MimeType.TEXT);
+  
+  // หมายเหตุ: Google Apps Script ไม่รองรับ setHeaders()
+  // CORS จะถูกจัดการโดยการตั้งค่าใน deployment
+  
+  return output;
 }
 
 function doGet(e) {
@@ -23,13 +21,6 @@ function doGet(e) {
     const output = ContentService.createTextOutput();
     output.setMimeType(ContentService.MimeType.JSON);
     
-    // เพิ่ม CORS headers
-    output.setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Accept'
-    });
-    
     const action = e.parameter.action;
     console.log('GET Action:', action);
     
@@ -38,7 +29,7 @@ function doGet(e) {
         success: true,
         message: 'Connection successful',
         timestamp: new Date().toISOString(),
-        version: '3.0',
+        version: '3.1',
         source: 'doGet',
         requestOrigin: e.parameter.origin || 'unknown'
       };
@@ -65,14 +56,9 @@ function doGet(e) {
       stack: error.stack
     };
     
-    return ContentService
-      .createTextOutput(JSON.stringify(errorResult))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Accept'
-      });
+    const errorOutput = ContentService.createTextOutput(JSON.stringify(errorResult));
+    errorOutput.setMimeType(ContentService.MimeType.JSON);
+    return errorOutput;
   }
 }
 
@@ -83,13 +69,6 @@ function doPost(e) {
     
     const output = ContentService.createTextOutput();
     output.setMimeType(ContentService.MimeType.JSON);
-    
-    // เพิ่ม CORS headers
-    output.setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Accept'
-    });
     
     if (!e.postData || !e.postData.contents) {
       const errorResult = {
@@ -123,14 +102,9 @@ function doPost(e) {
       stack: error.stack
     };
     
-    return ContentService
-      .createTextOutput(JSON.stringify(errorResult))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Accept'
-      });
+    const errorOutput = ContentService.createTextOutput(JSON.stringify(errorResult));
+    errorOutput.setMimeType(ContentService.MimeType.JSON);
+    return errorOutput;
   }
 }
 
