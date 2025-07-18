@@ -15,15 +15,26 @@ const MainPage = () => {
           PonDaiPonDee
         </h1>
         
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/history')}
-          className="flex items-center gap-2"
-        >
-          <HistoryIcon className="w-5 h-5" />
-          ประวัติ
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/debug')}
+            className="flex items-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800"
+          >
+            🔧 Debug
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/history')}
+            className="flex items-center gap-2"
+          >
+            <HistoryIcon className="w-5 h-5" />
+            ประวัติ
+          </Button>
+        </div>
       </div>
 
       {/* Calculator Form */}

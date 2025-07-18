@@ -1,0 +1,1 @@
+Timestamp	Product Price	Down Payment	Principal	Interest Rate	Months	Total Interest	Total Amount	Monthly Payment
