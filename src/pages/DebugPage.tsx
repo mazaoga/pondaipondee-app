@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/UI/Button';
 import { testConnection, getCalculationHistory } from '../services/googleSheetsService';
 
@@ -138,6 +139,7 @@ interface DebugResult {
 }
 
 const DebugPage = () => {
+  const navigate = useNavigate();
   const [results, setResults] = useState<DebugResult[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -219,11 +221,12 @@ const DebugPage = () => {
           </h1>
 
           {/* Control Panel */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <Button
               onClick={testUrlHandler}
               disabled={loading}
-              className="bg-yellow-500 hover:bg-yellow-600"
+              className="bg-yellow-500 hover:bg-yellow-600 h-12"
+              size="lg"
             >
               ทดสอบ URL
             </Button>
@@ -231,7 +234,8 @@ const DebugPage = () => {
             <Button
               onClick={testConnectionHandler}
               disabled={loading}
-              className="bg-blue-500 hover:bg-blue-600"
+              className="bg-blue-500 hover:bg-blue-600 h-12"
+              size="lg"
             >
               ทดสอบการเชื่อมต่อ
             </Button>
@@ -239,7 +243,8 @@ const DebugPage = () => {
             <Button
               onClick={testSaveHandler}
               disabled={loading}
-              className="bg-green-500 hover:bg-green-600"
+              className="bg-green-500 hover:bg-green-600 h-12"
+              size="lg"
             >
               ทดสอบบันทึกข้อมูล
             </Button>
@@ -247,7 +252,8 @@ const DebugPage = () => {
             <Button
               onClick={testGetHistoryHandler}
               disabled={loading}
-              className="bg-purple-500 hover:bg-purple-600"
+              className="bg-purple-500 hover:bg-purple-600 h-12"
+              size="lg"
             >
               ทดสอบดึงประวัติ
             </Button>
@@ -255,7 +261,8 @@ const DebugPage = () => {
             <Button
               onClick={clearResults}
               disabled={loading}
-              className="bg-red-500 hover:bg-red-600"
+              className="bg-red-500 hover:bg-red-600 h-12"
+              size="lg"
             >
               ล้างผลลัพธ์
             </Button>
@@ -343,6 +350,27 @@ const DebugPage = () => {
               <small>โค้ดนี้มี CORS headers และ doOptions() function สำหรับแก้ไข preflight requests</small>
             </div>
           </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="mt-8 flex flex-col gap-3">
+          <Button
+            onClick={() => navigate('/')}
+            className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white"
+            size="lg"
+            disabled={loading}
+          >
+            🏠 กลับหน้าหลัก
+          </Button>
+          
+          <Button
+            onClick={() => navigate('/history')}
+            className="w-full h-12 bg-green-600 hover:bg-green-700 text-white"
+            size="lg"
+            disabled={loading}
+          >
+            📊 ดูประวัติการคำนวณ
+          </Button>
         </div>
       </div>
     </div>

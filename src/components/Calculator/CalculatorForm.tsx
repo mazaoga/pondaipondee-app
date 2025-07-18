@@ -130,7 +130,7 @@ const CalculatorForm: React.FC = () => {
           </div>
         )}
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <Input
             label="ราคาสินค้า"
             type="number"
@@ -177,12 +177,13 @@ const CalculatorForm: React.FC = () => {
             inputMode="numeric"
           />
 
-          <div className="flex gap-3 pt-4">
+          <div className="flex flex-col gap-4 pt-6">
             <Button
               onClick={handleCalculate}
               loading={isCalculating}
               disabled={isCalculating || isSaving}
-              className="flex-1"
+              className="w-full"
+              size="lg"
             >
               {isCalculating ? 'กำลังคำนวณ...' : 'คำนวณ'}
             </Button>
@@ -191,6 +192,8 @@ const CalculatorForm: React.FC = () => {
               variant="secondary"
               onClick={handleReset}
               disabled={isCalculating || isSaving}
+              size="lg"
+              className="w-full"
             >
               ล้างข้อมูล
             </Button>

@@ -18,18 +18,18 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props 
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation';
   
   const variants = {
-    primary: 'bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500',
-    secondary: 'bg-gray-100 hover:bg-gray-200 text-gray-700 focus:ring-gray-500',
-    outline: 'border border-blue-500 text-blue-500 hover:bg-blue-50 focus:ring-blue-500',
+    primary: 'bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500 active:bg-blue-700',
+    secondary: 'bg-gray-100 hover:bg-gray-200 text-gray-700 focus:ring-gray-500 active:bg-gray-300',
+    outline: 'border border-blue-500 text-blue-500 hover:bg-blue-50 focus:ring-blue-500 active:bg-blue-100',
   };
   
   const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    sm: 'px-4 py-3 text-sm min-h-[44px]', // เพิ่ม min-height สำหรับ touch target
+    md: 'px-6 py-4 text-base min-h-[48px]', // เพิ่ม padding และ min-height
+    lg: 'px-8 py-5 text-lg min-h-[52px]', // เพิ่ม padding และ min-height
   };
 
   const classes = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`;

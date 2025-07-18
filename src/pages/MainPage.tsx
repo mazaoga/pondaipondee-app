@@ -10,26 +10,26 @@ const MainPage = () => {
   return (
     <Layout>
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 text-center sm:text-left">
           PonDaiPonDee
         </h1>
         
-        <div className="flex gap-2">
+        <div className="flex gap-3 justify-center sm:justify-end">
           <Button
             variant="outline"
-            size="sm"
+            size="md"
             onClick={() => navigate('/debug')}
-            className="flex items-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800"
+            className="flex items-center justify-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 min-w-[120px]"
           >
             🔧 Debug
           </Button>
           
           <Button
             variant="outline"
-            size="sm"
+            size="md"
             onClick={() => navigate('/history')}
-            className="flex items-center gap-2"
+            className="flex items-center justify-center gap-2 min-w-[120px]"
           >
             <HistoryIcon className="w-5 h-5" />
             ประวัติ
