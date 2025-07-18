@@ -1,5 +1,6 @@
 // Google Sheets API configuration
-const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbw_e_MjmnJKSKtq0h7nvjUoSy4JryH28v518HeW9CBAC2KX7HyOXAqz0BUXfRCxL47r/exec';
+// แทนที่ URL นี้ด้วย URL ที่ได้จาก Google Apps Script deployment
+const GOOGLE_SCRIPTS_API_URL = 'https://script.google.com/macros/s/AKfycbyeGnXxiN0iX4SeAo2e5fld_rMsJpJBW7nZYA_YTkjVmNBLQrCyoTFSAIuHZ2Aa8NjX/exec';
 
 /**
  * บันทึกข้อมูลการคำนวณลง Google Sheets
@@ -22,7 +23,7 @@ export const saveCalculation = async (calculationData) => {
     };
 
     // สำหรับ development - จำลองการบันทึกข้อมูล
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.log('จำลองการบันทึกข้อมูลลง Google Sheets:', data);
       
       // เก็บข้อมูลใน localStorage สำหรับการทดสอบ
@@ -86,7 +87,7 @@ export const saveCalculation = async (calculationData) => {
 export const getCalculationHistory = async () => {
   try {
     // สำหรับ development - ใช้ข้อมูลจาก localStorage
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.log('ดึงข้อมูลจาก localStorage');
       const data = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
       
@@ -138,7 +139,7 @@ export const getCalculationHistory = async () => {
  */
 export const testConnection = async () => {
   try {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       return true;
     }
 
