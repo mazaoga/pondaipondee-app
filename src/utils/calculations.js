@@ -10,8 +10,11 @@ export const calculateMonthlyPayment = (productPrice, downPayment, interestRate,
   // คำนวณยอดเงินต้น
   const principal = productPrice - downPayment;
   
-  // คำนวณดอกเบี้ยรวม
-  const totalInterest = principal * (interestRate / 100);
+  // คำนวณระยะเวลาเป็นปี
+  const years = months / 12;
+  
+  // คำนวณดอกเบี้ยรวม (Simple Interest: P * R * T)
+  const totalInterest = principal * (interestRate / 100) * years;
   
   // คำนวณยอดรวมที่ต้องผ่อน
   const totalAmount = totalInterest + principal;
